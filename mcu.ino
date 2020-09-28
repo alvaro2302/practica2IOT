@@ -4,7 +4,7 @@ const char* ssid = "COMTECO-95158360";
 const char* password = "70415428";
 
 const uint16_t port = 8090;
-const char * host = "192.168.1.72";
+const char* host = "192.168.1.72";
 String mensaje = " ";
 int size;
 
@@ -26,6 +26,7 @@ void setup()
   
 void loop()
 {
+    delay(1000)
     WiFiClient client;
 
     if (!client.connect(host, port)) {
@@ -35,8 +36,15 @@ void loop()
         delay(1000);
         return;
     }
+    if(client.available() == 0){
+      String line = client.readStringUntil('\n');
+      Serial.print(line);
+
+    }
  
     Serial.println("Connected to server successful!");
+
+    
     client.print("Hello from ESP32! jojojoj");
     Serial.println("Disconnecting...");
     client.stop();
