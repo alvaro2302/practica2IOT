@@ -3,7 +3,7 @@
 const char* ssid = "COMTECO-95158360";
 const char* password = "70415428";
 
-const uint16_t port = 8090;
+const uint16_t port = 10000;
 const char* host = "192.168.1.72";
 String mensaje = " ";
 int size;
@@ -26,9 +26,10 @@ void setup()
   
 void loop()
 {
-    delay(5000)
+    delay(5000);
     WiFiClient client;
-
+    Serial.println("Connected to");
+    client.println(host);
     if (!client.connect(host, port)) {
  
         Serial.println("Connection to host failed");
@@ -39,20 +40,18 @@ void loop()
     unsigned long timeout = millis();
     while (client.available() == 0) 
     {
-      if (millis() - timeout > 2000) {
+      if (millis() - timeout > 10000) {
         Serial.println("Client timeout!");
-        Serial.println("Connected to server successful!");
-        client.print("Hello from ESP32! jojojoj");
         client.stop();
         return;
       }
     }
 
 
-    if(client.available() > 0){
-      String line = client.readStringUntil('\n');
-      Serial.print("recibido")
-      Serial.print(line);
+    while(client.available() > 0){
+      String line = client.readStringUntil('\r');
+      Serial.println("recibido");
+      Serial.println(line);
 
     }
  

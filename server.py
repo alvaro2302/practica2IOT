@@ -1,7 +1,7 @@
 import socket
 
 HOST = '0.0.0.0'
-PORT = 8090
+PORT = 10000
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST,PORT))
     s.listen()
@@ -10,18 +10,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by ', addr)
         while True : 
            
+            print("ingrese la opcion ")
+            print("1 prender led azul")
+            print("2 prender led rojo")
+            respuesta = input()
+            if(respuesta != " "):
+                conn.send(respuesta.encode())
             data  = conn.recv(1024)
             print("esto es el data")
             print("data", data)
             # if not data:
             #     break
             
-            print("ingrese la opcion ")
-            print("1 prender led azul")
-            print("2 prender led rojo")
-            respuesta = input()
-            if(respuesta == "1" or respuesta == "2"):
-                conn.send(respuesta.encode())
-            
             conn.sendall(data)
-            
