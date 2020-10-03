@@ -1,10 +1,14 @@
 import socket
 
 HOST = '127.0.0.1'
-PORT = 65432
+PORT = 8090
 
-with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
-    s.connect((HOST,PORT))
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
+s.connect((HOST,PORT))
+message="off"
+while True:
+   
     s.sendall(b'Hello world')
     data = s.recv(1024)
-print('Received',repr(data))
+    message=repr(data)
+    print('Received',repr(data))
