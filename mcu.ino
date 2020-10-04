@@ -53,17 +53,13 @@ void loop()
     unsigned long timeout = millis();
     while (client.available() == 0) 
     {
-      if (millis() - timeout > 20000) {
+      if (millis() - timeout > 10000) {
         Serial.println("Client timeout!");
         client.stop();
         return;
       }
     }
-    client.println("Distancia: ");
     client.println(distancia);      //Enviamos serialmente el valor de la distancia
-    client.println("cm");
-    client.println();
-    delay(1000);          //Hacemos una pausa de 100ms
 
     while(client.available() > 0){
 
@@ -82,7 +78,8 @@ void loop()
     }
  
     
-    
+    Serial.println("Disconnecting...");
+    client.stop();
  
 }
 
