@@ -25,7 +25,7 @@ while True:
         # if not data:
         #     break
             
-        conn.sendall(data)
+        #conn.sendall(data)
     break
 print("se termino la conexion ")
 conn.close()
