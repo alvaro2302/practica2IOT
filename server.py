@@ -1,14 +1,7 @@
 import socket
+import threading
 
-HOST = '0.0.0.0'
-PORT = 10000
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST,PORT))
-s.listen()
-while True:
-    conn, addr = s.accept()
-    #with conn:
-    print('Connected by ', addr)
+def on_new_client(clientsocket,addr):
     while True : 
         print("ingrese la opcion ")
         print("1 prender led azul")
@@ -26,6 +19,17 @@ while True:
         #     break
             
         #conn.sendall(data)
-    break
+    clientsocket.close()
+
+HOST = '0.0.0.0'
+PORT = 10000
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST,PORT))
+s.listen()
+
+while True:
+    conn, addr = s.accept()
+    #with conn:
+    threading._start_new_thread(on_new_client,(conn,addr))
 print("se termino la conexion ")
 conn.close()
